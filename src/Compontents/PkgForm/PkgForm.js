@@ -92,10 +92,12 @@ export function PkgForm() {
     }
 
     const handleOptimize = (event) => {
-        event.preventDefault();
+        if(packages.length != 0) {
+            event.preventDefault();
 
-        setShowCreatedPackages(false)
-        setShowResults(true)
+            setShowCreatedPackages(false)
+            setShowResults(true)
+        }
     }
 
     const handleBack = (event) => {
