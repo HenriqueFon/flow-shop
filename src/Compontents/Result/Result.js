@@ -3,40 +3,7 @@ import './Result.css';
 const _ = require('lodash');
 
 
-export function Result() {
-
-    const package_info = [
-        {
-            "Dependencies": 3,
-            "Installation_Time": 59,
-            "Package": "Package_1",
-            "Package_Size": 42
-        },
-        {
-            "Dependencies": 2,
-            "Installation_Time": 37,
-            "Package": "Package_2",
-            "Package_Size": 37
-        },
-        {
-            "Dependencies": 4,
-            "Installation_Time": 42,
-            "Package": "Package_3",
-            "Package_Size": 65
-        },
-        {
-            "Dependencies": 1,
-            "Installation_Time": 30,
-            "Package": "Package_4",
-            "Package_Size": 30
-        },
-        {
-            "Dependencies": 5,
-            "Installation_Time": 88,
-            "Package": "Package_5",
-            "Package_Size": 88
-        }
-    ]
+export function Result( { packages } ) {
 
     // Função para inicializar a população com ordens aleatórias dos pacotes
   function initialize_population(pop_size, num_packages) {
@@ -103,15 +70,15 @@ export function Result() {
 }
 
 // Calculando os valores máximos para normalização
- let max_dependencies = _.maxBy(package_info, 'Dependencies').Dependencies;
- let max_package_size = _.maxBy(package_info, 'Package_Size').Package_Size;
- let max_installation_time = _.maxBy(package_info, 'Installation_Time').Installation_Time;
+ let max_dependencies = _.maxBy(packages, 'Dependencies').Dependencies;
+ let max_package_size = _.maxBy(packages, 'Package_Size').Package_Size;
+ let max_installation_time = _.maxBy(packages, 'Installation_Time').Installation_Time;
 
 // Função objetivo que retorna a qualidade de uma ordem
  function objective_function(individual) {
     let total_score = 0;
     for (let i of individual) {
-        let pkg = package_info[i];
+        let pkg = packages[i];
         // Normaliza os valores e calcula a média ponderada
         let normalized_dependencies = pkg.Dependencies / max_dependencies;
         // console.log("Numero de dependia: " + pkg.Dependencies + " / Tamanho maximo das dependencias: " + max_dependencies)
@@ -137,17 +104,17 @@ export function Result() {
     let mutation_rate = 0.2;
     
     // Executando o Algoritmo Genético para encontrar a melhor ordem
-    let best_order = genetic_algorithm(num_generations, pop_size, num_parents, num_offsprings, mutation_rate, package_info.length);
+    let best_order = genetic_algorithm(num_generations, pop_size, num_parents, num_offsprings, mutation_rate, packages.length);
     // console.log(best_order);
     
     // Exibindo a ordem otimizada dos pacotes
     // console.log("Ordem otimizada dos pacotes:");
-    let optimized_df = _.map(best_order, i => package_info[i]);
+    let optimized_df = _.map(best_order, i => packages[i]);
     // console.log(optimized_df);
     
     // Convertendo o DataFrame original para JSON e imprimindo de forma identada
     // console.log("DataFrame Original em JSON:");
-    let package_info_original = JSON.stringify(package_info, null, 4);
+    let package_info_original = JSON.stringify(packages, null, 4);
     // console.log(package_info_original);
     
     // Convertendo o DataFrame otimizado para JSON e imprimindo de forma identada
@@ -162,7 +129,7 @@ export function Result() {
         <div className = "table-display">
             <div className = "left-table">
                 <h2>Inicio</h2>
-                <Table data = { package_info }  />
+                <Table data = { packages }  />
             </div>
             <div className = "right-table">
                 <h2>Otimizado</h2>
