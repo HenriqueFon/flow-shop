@@ -84,7 +84,7 @@ export function PkgForm() {
     }
 
     const validateMaxPackages = () => {
-        if(packages.length < 10) {
+        if(packages.length < 100) {
             return true;
         }
 
