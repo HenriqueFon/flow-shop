@@ -30,7 +30,7 @@ Este algoritmo oferece uma abordagem de otimização para a sequência de instal
 
 `https://github.com/HenriqueFon/flow-shop.git`
 
-Abrindo o cmd digite git clone `https://github.com/HenriqueFon/flow-shop.git` para clonar o projeto para sua máquina.
+Abrindo o cmd digite `git clone https://github.com/HenriqueFon/flow-shop.git` para clonar o projeto para sua máquina.
 
 `npm install`
 
